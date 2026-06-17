@@ -1,0 +1,421 @@
+You are a senior full-stack software architect and migration engineer.
+
+I want to build a POC for migrating an existing Hospital Management System Patient Registration screen from legacy AngularJS 1.x + ASP.NET MVC/Web API (.NET Framework 4.8) to a modern stack.
+
+IMPORTANT:
+Do not create a toy/demo-only app. Build a production-ready POC structure with proper architecture, clean code, validations, reusable components, and API-ready backend design.
+
+PROJECT NAME:
+HMS Patient Registration Migration POC
+
+CURRENT LEGACY STACK:
+Frontend:
+- AngularJS 1.x
+- Bootstrap 3.x
+- jQuery 1.10.2
+- Custom directives/factories
+- 720kb.datepicker
+- ui.bootstrap
+- datatables
+
+Backend:
+- ASP.NET MVC 5.2.3
+- ASP.NET Web API 5.2.9
+- Entity Framework 6.x
+- Unity IoC Container
+- SQL Server Database
+- Repository pattern
+- Service-oriented architecture
+
+TARGET STACK:
+Frontend:
+- Angular 18+
+- TypeScript 5+
+- Angular Material or PrimeNG
+- Reactive Forms
+- RxJS
+- Responsive UI
+
+Backend:
+- .NET 8 Web API
+- Clean Architecture / Onion Architecture
+- Entity Framework Core 8
+- SQL Server support
+- Built-in Dependency Injection
+- JWT-ready authentication structure
+- Swagger/OpenAPI
+- Global exception handling
+- Logging
+- CORS configuration
+
+POC SCOPE:
+Build only the Patient Registration module.
+
+MAIN SCREEN:
+Patient Registration Screen should support:
+1. New Patient Registration
+2. Existing Patient Search and Update
+3. Staff Patient
+4. Newborn Patient
+5. Patient demographics
+6. Residential address
+7. Office/professional details
+8. Insurance/sponsor placeholder section
+9. Document upload placeholder
+10. Integration-ready appointment reference field
+
+FRONTEND REQUIREMENTS:
+Create an Angular application with the following:
+
+1. App Structure:
+- Use standalone components or modern Angular module structure.
+- Use lazy-loaded patient-registration feature route.
+- Use Angular Reactive Forms.
+- Use strict TypeScript typing.
+- No use of "any" unless absolutely unavoidable.
+- Component files should stay clean and separated.
+- Keep PatientRegistrationComponent under 500 lines by splitting into child components.
+
+2. UI Sections:
+Create a modern responsive Patient Registration UI with:
+- Header: Patient Registration
+- Action buttons: New, Search Patient, Save, Reset
+- Patient Type selection:
+  - New Patient
+  - Existing Patient
+  - Staff
+  - Newborn
+
+3. Personal Details Section:
+Fields:
+- Prefix/Title dropdown
+- First Name
+- Middle Name
+- Last Name
+- Gender dropdown, auto-set based on title where possible
+- Date of Birth
+- Age Years
+- Age Months
+- Age Days
+- Mobile Country Code
+- Mobile Number
+- Email ID
+- Marital Status
+- Blood Group
+- Civil ID / National ID
+- Family Name
+
+4. Additional Details Collapsible Section:
+Fields:
+- Nationality
+- Warning/Alerts
+- Race
+- Religion
+- Preferred Language
+
+5. Residential Address Section:
+Fields:
+- Phone Country Code
+- STD Code
+- Phone Number
+- Address
+- Country dropdown
+- State dropdown
+- City dropdown
+- Area dropdown
+- Pincode
+
+Cascading dropdown rule:
+Country selection should load states.
+State selection should load cities.
+City selection should load areas.
+
+6. Office / Professional Details Section:
+Fields:
+- Occupation
+- Company
+- Company Name
+- Profession
+- Income Category
+
+7. Patient Search Modal:
+Create a reusable modal/dialog for patient search.
+Search options:
+- MR Number
+- First Name
+- Last Name
+- Mobile Number
+- Civil ID
+
+Search result table columns:
+- MR Number
+- Patient Name
+- Gender
+- DOB
+- Mobile
+- Civil ID
+- Action: Select
+
+On select:
+- Populate patient registration form with selected patient data.
+- Switch screen mode to update existing patient.
+
+8. Validations:
+Implement custom validators:
+- Required fields marked with *
+- Email format
+- Mobile number should be 10 digits
+- Name fields should allow only letters and spaces
+- DOB should not be future date
+- Age should auto-calculate from DOB
+- Civil ID validation placeholder
+- Pincode numeric validation
+
+9. Services:
+Create services:
+- PatientRegistrationService
+- DropdownService with caching
+- ValidationService
+- NotificationService
+- ErrorHandlerService
+
+10. Models / Interfaces:
+Create strongly typed interfaces:
+- PatientRegistration
+- PatientSearchRequest
+- PatientSearchResult
+- DropdownItem
+- ApiResponse<T>
+- Address
+- ProfessionalDetails
+- AdditionalDetails
+
+11. UI Quality:
+Use Angular Material or PrimeNG.
+The UI should look modern, clean, hospital-grade, professional, and responsive.
+Use cards, sections, clear spacing, icons, loading spinners, validation messages, and toast notifications.
+
+BACKEND REQUIREMENTS:
+Create a .NET 8 Web API solution with Clean Architecture.
+
+Solution structure:
+- HMS.PatientRegistration.Api
+- HMS.PatientRegistration.Application
+- HMS.PatientRegistration.Domain
+- HMS.PatientRegistration.Infrastructure
+
+Backend layers:
+
+1. Domain:
+Entities:
+- PatientRegistration
+- Address
+- ProfessionalDetails
+- AdditionalDetails
+- DropdownItem
+
+Interfaces:
+- IPatientRegistrationRepository
+- IDropdownRepository
+
+2. Application:
+DTOs:
+- PatientRegistrationRequestDto
+- PatientRegistrationResponseDto
+- PatientSearchRequestDto
+- PatientSearchResultDto
+- DropdownRequestDto
+- DropdownItemDto
+- ApiResponseDto<T>
+
+Services:
+- IPatientRegistrationService
+- PatientRegistrationService
+- IDropdownService
+- DropdownService
+
+Validation:
+- Use FluentValidation if possible.
+- Validate required fields, DOB, email, mobile, names, Civil ID placeholder.
+
+Mapping:
+- Add AutoMapper profile or manual mapping layer.
+
+3. Infrastructure:
+- EF Core DbContext
+- SQL Server connection setup
+- Repository implementation
+- Stored procedure integration-ready methods
+- Seed sample dropdown data if no database is connected
+
+Important:
+The original database should be maintained as much as possible. Avoid unnecessary schema changes.
+Add stored procedure integration placeholders for:
+- Insert/Update patient
+- Fetch patient
+- Fetch patient by ID
+- Fetch dropdown values
+
+4. API:
+Controllers:
+- PatientRegistrationController
+- CommonDropdownController
+
+Required endpoints:
+POST /api/patientregistration/IUD
+POST /api/patientregistration/Fetch
+POST /api/patientregistration/FetchPatientData
+POST /api/CommonDropdown/Fetch
+
+Also add modern REST-style endpoints for future migration:
+POST /api/patient-registration
+PUT /api/patient-registration/{id}
+GET /api/patient-registration/{id}
+POST /api/patient-registration/search
+GET /api/dropdowns/{type}
+
+5. Middleware:
+- Global exception handling middleware
+- Logging middleware
+- CORS configuration
+- Swagger/OpenAPI
+- Standard API response wrapper
+
+6. Security:
+- SQL injection safe code
+- XSS-safe data handling
+- JWT authentication structure placeholder
+- Input validation
+- Environment-based configuration
+
+CODE QUALITY REQUIREMENTS:
+Frontend:
+- ESLint
+- Prettier
+- Strict TypeScript
+- No console.log in production code
+- Reusable components
+- Reactive forms
+- Single responsibility services
+- Clean folder structure
+
+Backend:
+- SOLID principles
+- Async/await for all I/O operations
+- Controller methods under 50 lines
+- Proper exception handling
+- Dependency injection everywhere
+- XML documentation for public APIs where useful
+- No business logic inside controllers
+
+FOLDER STRUCTURE EXPECTED:
+
+Frontend:
+/frontend
+  /src/app
+    /core
+      /services
+      /interceptors
+      /models
+      /guards
+    /shared
+      /components
+      /validators
+      /pipes
+    /features
+      /patient-registration
+        /components
+          patient-registration
+          patient-personal-details
+          patient-address
+          patient-professional-details
+          patient-additional-details
+          patient-search-dialog
+          patient-document-upload
+        /models
+        /services
+        /routes
+
+Backend:
+/backend
+  /src
+    /HMS.PatientRegistration.Api
+    /HMS.PatientRegistration.Application
+    /HMS.PatientRegistration.Domain
+    /HMS.PatientRegistration.Infrastructure
+  /tests
+    /HMS.PatientRegistration.Tests
+
+DELIVERABLES:
+1. Working Angular Patient Registration UI
+2. Working .NET 8 Web API backend structure
+3. Mock data fallback if SQL Server is not connected
+4. Swagger documentation
+5. API response wrapper
+6. Patient search modal
+7. Cascading dropdowns
+8. Save/update patient flow
+9. Form reset flow
+10. Age calculation from DOB
+11. Proper validation messages
+12. README.md with setup steps
+13. Migration strategy document in /docs/MIGRATION_STRATEGY.md
+14. Architecture document in /docs/ARCHITECTURE.md
+15. API documentation in /docs/API_DOCUMENTATION.md
+
+IMPORTANT IMPLEMENTATION APPROACH:
+Since Replit may not fully support SQL Server locally, implement:
+- Mock repository mode by default
+- SQL Server repository mode configurable by appsettings
+- appsettings.json setting:
+  "DataMode": "Mock" or "SqlServer"
+
+When DataMode = Mock:
+Use in-memory sample patients and dropdowns.
+
+When DataMode = SqlServer:
+Use EF Core SQL Server DbContext and repository placeholders.
+
+SAMPLE DROPDOWNS:
+Add sample dropdowns for:
+- Prefix
+- Gender
+- Marital Status
+- Blood Group
+- Nationality
+- Race
+- Religion
+- Language
+- Country
+- State
+- City
+- Area
+- Occupation
+- Company
+- Profession
+- Income Category
+
+SAMPLE PATIENT DATA:
+Add 5 sample patients with realistic hospital registration data.
+
+DESIGN GOAL:
+The final UI should look like a professional hospital software screen, not a simple form.
+Use a clean layout:
+- Left-to-right data entry flow
+- Section cards
+- Collapsible additional details
+- Search modal
+- Sticky action bar
+- Responsive design for desktop, tablet, and mobile
+
+README SHOULD INCLUDE:
+- Project overview
+- Tech stack
+- How to run frontend
+- How to run backend
+- API base URL configuration
+- How to switch Mock/SQL Server mode
+- How to test patient registration
+- Future migration strategy
+
+Now generate the complete project with all required files, code, structure, and documentation.
