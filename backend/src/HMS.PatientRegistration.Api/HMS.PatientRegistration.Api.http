@@ -1,0 +1,6 @@
+@HMS.PatientRegistration.Api_HostAddress = http://localhost:5209
+
+GET {{HMS.PatientRegistration.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

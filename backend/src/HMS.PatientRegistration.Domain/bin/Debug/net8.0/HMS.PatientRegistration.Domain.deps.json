@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "HMS.PatientRegistration.Domain/1.0.0": {
+        "runtime": {
+          "HMS.PatientRegistration.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "HMS.PatientRegistration.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

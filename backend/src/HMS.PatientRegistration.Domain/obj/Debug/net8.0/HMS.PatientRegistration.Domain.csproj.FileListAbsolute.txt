@@ -1,0 +1,11 @@
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/bin/Debug/net8.0/HMS.PatientRegistration.Domain.deps.json
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/bin/Debug/net8.0/HMS.PatientRegistration.Domain.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/bin/Debug/net8.0/HMS.PatientRegistration.Domain.pdb
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/obj/Debug/net8.0/HMS.PatientRegistration.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/obj/Debug/net8.0/HMS.PatientRegistration.Domain.AssemblyInfoInputs.cache
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/obj/Debug/net8.0/HMS.PatientRegistration.Domain.AssemblyInfo.cs
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/obj/Debug/net8.0/HMS.PatientRegistration.Domain.csproj.CoreCompileInputs.cache
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/obj/Debug/net8.0/HMS.PatientRegistration.Domain.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/obj/Debug/net8.0/refint/HMS.PatientRegistration.Domain.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/obj/Debug/net8.0/HMS.PatientRegistration.Domain.pdb
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/obj/Debug/net8.0/ref/HMS.PatientRegistration.Domain.dll

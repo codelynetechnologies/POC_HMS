@@ -1,32 +1,38 @@
 kind = "api"
-previewPath = "/api" # TODO - should be excluded from preview in the first place
-title = "API Server"
+previewPath = "/"
+title = "HMS Patient Registration"
 version = "1.0.0"
 id = "3B4_FFSkEVBkAeYMFRJ2e"
 
 [[services]]
 localPort = 8080
 name = "API Server"
-paths = ["/api"]
+paths = ["/"]
 
 [services.development]
-run = "pnpm --filter @workspace/api-server run dev"
+run = "dotnet run --no-launch-profile --project /home/runner/workspace/backend/src/HMS.PatientRegistration.Api/HMS.PatientRegistration.Api.csproj"
+
+[services.development.env]
+PORT = "8080"
+DOTNET_CLI_TELEMETRY_OPTOUT = "1"
+DOTNET_NOLOGO = "1"
+ASPNETCORE_ENVIRONMENT = "Development"
 
 [services.production]
 
 [services.production.build]
-args = ["pnpm", "--filter", "@workspace/api-server", "run", "build"]
+args = ["dotnet", "publish", "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/HMS.PatientRegistration.Api.csproj", "-c", "Release", "-o", "/home/runner/workspace/backend/publish"]
 
 [services.production.build.env]
-NODE_ENV = "production"
+DOTNET_CLI_TELEMETRY_OPTOUT = "1"
+DOTNET_NOLOGO = "1"
 
 [services.production.run]
-# we don't run through pnpm to make startup faster in production
-args = ["node", "--enable-source-maps", "artifacts/api-server/dist/index.mjs"]
+args = ["dotnet", "/home/runner/workspace/backend/publish/HMS.PatientRegistration.Api.dll"]
 
 [services.production.run.env]
 PORT = "8080"
-NODE_ENV = "production"
+ASPNETCORE_ENVIRONMENT = "Production"
 
 [services.production.health.startup]
 path = "/api/healthz"

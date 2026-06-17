@@ -1,0 +1,67 @@
+.page-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.page-toolbar__title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.page-toolbar__title h2 {
+  font-size: 18px;
+  color: var(--hms-text);
+}
+
+.mr-badge {
+  background: var(--hms-primary-light);
+  color: var(--hms-primary-dark);
+  border: 1px solid #bcd9f5;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+
+.page-toolbar__actions {
+  display: flex;
+  gap: 10px;
+}
+
+.banner {
+  padding: 11px 16px;
+  border-radius: var(--hms-radius);
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.banner--success {
+  background: #e8f5e9;
+  color: var(--hms-success);
+  border: 1px solid #b7dfb9;
+}
+
+.banner--error {
+  background: var(--hms-danger-bg);
+  color: var(--hms-danger);
+  border: 1px solid #f4c7c3;
+}
+
+.form-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 16px 0 32px;
+  position: sticky;
+  bottom: 0;
+}
+
+.form-footer .btn-primary {
+  min-width: 160px;
+}

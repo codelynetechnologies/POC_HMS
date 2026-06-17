@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C3063FFB-0860-45CB-90FC-947AEF39C114}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.PatientRegistration.Domain", "src\HMS.PatientRegistration.Domain\HMS.PatientRegistration.Domain.csproj", "{D80915A0-E5FD-46B5-9050-E14318C00EFD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.PatientRegistration.Application", "src\HMS.PatientRegistration.Application\HMS.PatientRegistration.Application.csproj", "{437CB620-02F9-4CB5-AEFD-A8F6354CAE14}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.PatientRegistration.Infrastructure", "src\HMS.PatientRegistration.Infrastructure\HMS.PatientRegistration.Infrastructure.csproj", "{C6F61A6D-E419-4169-9A69-1B7E80DBB2ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.PatientRegistration.Api", "src\HMS.PatientRegistration.Api\HMS.PatientRegistration.Api.csproj", "{B81455B1-7901-4DEE-BEDD-542173243F0A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CCBEDB8A-6E2D-4950-9C0F-F120D5B63D1B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMS.PatientRegistration.Tests", "tests\HMS.PatientRegistration.Tests\HMS.PatientRegistration.Tests.csproj", "{B39A93F8-EC5F-4F51-9330-C9C82FF26FD7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D80915A0-E5FD-46B5-9050-E14318C00EFD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D80915A0-E5FD-46B5-9050-E14318C00EFD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D80915A0-E5FD-46B5-9050-E14318C00EFD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D80915A0-E5FD-46B5-9050-E14318C00EFD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{437CB620-02F9-4CB5-AEFD-A8F6354CAE14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{437CB620-02F9-4CB5-AEFD-A8F6354CAE14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{437CB620-02F9-4CB5-AEFD-A8F6354CAE14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{437CB620-02F9-4CB5-AEFD-A8F6354CAE14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6F61A6D-E419-4169-9A69-1B7E80DBB2ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6F61A6D-E419-4169-9A69-1B7E80DBB2ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6F61A6D-E419-4169-9A69-1B7E80DBB2ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6F61A6D-E419-4169-9A69-1B7E80DBB2ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B81455B1-7901-4DEE-BEDD-542173243F0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B81455B1-7901-4DEE-BEDD-542173243F0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B81455B1-7901-4DEE-BEDD-542173243F0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B81455B1-7901-4DEE-BEDD-542173243F0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B39A93F8-EC5F-4F51-9330-C9C82FF26FD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B39A93F8-EC5F-4F51-9330-C9C82FF26FD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B39A93F8-EC5F-4F51-9330-C9C82FF26FD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B39A93F8-EC5F-4F51-9330-C9C82FF26FD7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D80915A0-E5FD-46B5-9050-E14318C00EFD} = {C3063FFB-0860-45CB-90FC-947AEF39C114}
+		{437CB620-02F9-4CB5-AEFD-A8F6354CAE14} = {C3063FFB-0860-45CB-90FC-947AEF39C114}
+		{C6F61A6D-E419-4169-9A69-1B7E80DBB2ED} = {C3063FFB-0860-45CB-90FC-947AEF39C114}
+		{B81455B1-7901-4DEE-BEDD-542173243F0A} = {C3063FFB-0860-45CB-90FC-947AEF39C114}
+		{B39A93F8-EC5F-4F51-9330-C9C82FF26FD7} = {CCBEDB8A-6E2D-4950-9C0F-F120D5B63D1B}
+	EndGlobalSection
+EndGlobal

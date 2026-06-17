@@ -1,0 +1,62 @@
+<div class="page-toolbar">
+  <div class="page-toolbar__title">
+    <h2>{{ editingId ? 'Edit Patient' : 'New Patient Registration' }}</h2>
+    <span class="mr-badge" *ngIf="editingMrNumber">{{ editingMrNumber }}</span>
+  </div>
+  <div class="page-toolbar__actions">
+    <button type="button" class="btn-secondary" (click)="openSearch()">Search Patient</button>
+    <button type="button" class="btn-ghost" (click)="resetForm()">New</button>
+  </div>
+</div>
+
+<div class="banner banner--success" *ngIf="successMessage">{{ successMessage }}</div>
+<div class="banner banner--error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+  <app-personal-details
+    [form]="form"
+    [prefixes]="prefixes"
+    [genders]="genders"
+    [maritalStatuses]="maritalStatuses"
+    [bloodGroups]="bloodGroups"
+    [patientTypes]="patientTypes"
+  />
+
+  <app-additional-details
+    [form]="additionalForm"
+    [nationalities]="nationalities"
+    [races]="races"
+    [religions]="religions"
+    [languages]="languages"
+  />
+
+  <app-residential-address
+    [form]="addressForm"
+    [countries]="countries"
+    [states]="states"
+    [cities]="cities"
+    [areas]="areas"
+  />
+
+  <app-professional-details
+    [form]="professionalForm"
+    [occupations]="occupations"
+    [professions]="professions"
+    [incomeCategories]="incomeCategories"
+  />
+
+  <app-insurance-documents />
+
+  <div class="form-footer">
+    <button type="button" class="btn-ghost" (click)="resetForm()">Reset</button>
+    <button type="submit" class="btn-primary" [disabled]="saving">
+      {{ saving ? 'Saving...' : editingId ? 'Update Patient' : 'Register Patient' }}
+    </button>
+  </div>
+</form>
+
+<app-patient-search-modal
+  *ngIf="showSearch"
+  (close)="showSearch = false"
+  (select)="onSearchSelect($event)"
+/>
