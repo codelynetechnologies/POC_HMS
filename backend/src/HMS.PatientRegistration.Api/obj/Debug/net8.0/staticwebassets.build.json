@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "avdxNAivwtaBdmLPzCuKhl3zWPG7nqOMy61IEFnDrBk=",
+  "Hash": "qA5WzDJQvMzbMZ0LLG35qwC42sPv4zC9AN1PxfSIPaM=",
   "Source": "HMS.PatientRegistration.Api",
   "BasePath": "_content/HMS.PatientRegistration.Api",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-EGCZ6VRE.js",
+      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-HDDYVE22.js",
       "SourceId": "HMS.PatientRegistration.Api",
       "SourceType": "Discovered",
       "ContentRoot": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/",
       "BasePath": "_content/HMS.PatientRegistration.Api",
-      "RelativePath": "chunk-EGCZ6VRE.js",
+      "RelativePath": "chunk-HDDYVE22.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -33,15 +33,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/chunk-EGCZ6VRE.js"
+      "OriginalItemSpec": "wwwroot/chunk-HDDYVE22.js"
     },
     {
-      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-GDFSQ7C5.js",
+      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-L6XNBV5U.js",
       "SourceId": "HMS.PatientRegistration.Api",
       "SourceType": "Discovered",
       "ContentRoot": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/",
       "BasePath": "_content/HMS.PatientRegistration.Api",
-      "RelativePath": "chunk-GDFSQ7C5.js",
+      "RelativePath": "chunk-L6XNBV5U.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -52,7 +52,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/chunk-GDFSQ7C5.js"
+      "OriginalItemSpec": "wwwroot/chunk-L6XNBV5U.js"
     },
     {
       "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/index.html",
@@ -74,12 +74,12 @@
       "OriginalItemSpec": "wwwroot/index.html"
     },
     {
-      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/main-NL367XTL.js",
+      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/main-QOGOYSUP.js",
       "SourceId": "HMS.PatientRegistration.Api",
       "SourceType": "Discovered",
       "ContentRoot": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/",
       "BasePath": "_content/HMS.PatientRegistration.Api",
-      "RelativePath": "main-NL367XTL.js",
+      "RelativePath": "main-QOGOYSUP.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -90,7 +90,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/main-NL367XTL.js"
+      "OriginalItemSpec": "wwwroot/main-QOGOYSUP.js"
     },
     {
       "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/polyfills-FFHMD2TL.js",
@@ -112,12 +112,12 @@
       "OriginalItemSpec": "wwwroot/polyfills-FFHMD2TL.js"
     },
     {
-      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/styles-YT4OBXNK.css",
+      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/styles-VFVI3GM5.css",
       "SourceId": "HMS.PatientRegistration.Api",
       "SourceType": "Discovered",
       "ContentRoot": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/",
       "BasePath": "_content/HMS.PatientRegistration.Api",
-      "RelativePath": "styles-YT4OBXNK.css",
+      "RelativePath": "styles-VFVI3GM5.css",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -128,7 +128,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/styles-YT4OBXNK.css"
+      "OriginalItemSpec": "wwwroot/styles-VFVI3GM5.css"
     }
   ]
 }

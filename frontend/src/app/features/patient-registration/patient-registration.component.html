@@ -1,18 +1,95 @@
+<div class="toast-stack">
+  <div class="toast toast--success" *ngIf="successMessage" role="status">
+    <span class="toast__icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+        <path d="m9 11 3 3L22 4" />
+      </svg>
+    </span>
+    <div class="toast__body">
+      <div class="toast__title">Success</div>
+      {{ successMessage }}
+    </div>
+    <button type="button" class="toast__close" (click)="dismissToast()" aria-label="Dismiss">&times;</button>
+  </div>
+
+  <div class="toast toast--error" *ngIf="errorMessage" role="alert">
+    <span class="toast__icon" aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10" />
+        <path d="M12 8v4M12 16h.01" />
+      </svg>
+    </span>
+    <div class="toast__body">
+      <div class="toast__title">Action needed</div>
+      {{ errorMessage }}
+    </div>
+    <button type="button" class="toast__close" (click)="dismissToast()" aria-label="Dismiss">&times;</button>
+  </div>
+</div>
+
 <div class="page-toolbar">
   <div class="page-toolbar__title">
     <h2>{{ editingId ? 'Edit Patient' : 'New Patient Registration' }}</h2>
-    <span class="mr-badge" *ngIf="editingMrNumber">{{ editingMrNumber }}</span>
+    <span class="badge badge--outline" *ngIf="editingMrNumber">{{ editingMrNumber }}</span>
   </div>
   <div class="page-toolbar__actions">
+    <span class="legend"><span class="legend__star">*</span> Required field</span>
     <button type="button" class="btn-secondary" (click)="openSearch()">Search Patient</button>
     <button type="button" class="btn-ghost" (click)="resetForm()">New</button>
   </div>
 </div>
 
-<div class="banner banner--success" *ngIf="successMessage">{{ successMessage }}</div>
-<div class="banner banner--error" *ngIf="errorMessage">{{ errorMessage }}</div>
+<section class="summary-bar" aria-label="Patient summary">
+  <div class="summary-bar__id">
+    <span class="avatar">{{ summaryInitials }}</span>
+    <div>
+      <div class="summary-bar__name">{{ summaryName }}</div>
+      <div class="summary-bar__meta">
+        <span class="badge badge--outline">{{ typeLabel || 'New' }}</span>
+        <span *ngIf="genderLabel">{{ genderLabel }}</span>
+        <span *ngIf="ageLabel">&middot; {{ ageLabel }}</span>
+        <span *ngIf="bloodLabel">&middot; {{ bloodLabel }}</span>
+        <span class="badge badge--warn" *ngIf="warningAlerts" title="{{ warningAlerts }}">Alert on file</span>
+      </div>
+    </div>
+  </div>
+  <div class="summary-bar__right">
+    <div class="summary-bar__appt" *ngIf="appointmentRef">
+      <span class="summary-bar__appt-label">Appointment</span>
+      <span class="badge badge--muted">{{ appointmentRef }}</span>
+    </div>
+    <div class="summary-bar__status">
+      <span class="badge" [class.badge--outline]="editingId" [class.badge--muted]="!editingId">
+        {{ editingId ? 'Editing record' : 'Draft' }}
+      </span>
+    </div>
+  </div>
+</section>
 
-<form [formGroup]="form" (ngSubmit)="save()" novalidate>
+<ng-container *ngIf="loadingMaster">
+  <div class="hms-card section" *ngFor="let s of skeletonSections">
+    <div class="section__head">
+      <span class="skeleton" style="width: 34px; height: 34px; border-radius: 8px;"></span>
+      <div style="flex: 1;">
+        <span class="skeleton skeleton-line" style="width: 180px;"></span>
+        <span class="skeleton skeleton-line" style="width: 240px; margin-top: 8px; height: 9px;"></span>
+      </div>
+    </div>
+    <div class="section__body">
+      <div class="grid">
+        <div class="field" *ngFor="let f of skeletonFields">
+          <span class="skeleton skeleton-line" style="width: 70px; margin-bottom: 6px;"></span>
+          <span class="skeleton skeleton-field"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<form [formGroup]="form" (ngSubmit)="save()" novalidate *ngIf="!loadingMaster">
   <app-personal-details
     [form]="form"
     [prefixes]="prefixes"
@@ -48,10 +125,14 @@
   <app-insurance-documents />
 
   <div class="form-footer">
-    <button type="button" class="btn-ghost" (click)="resetForm()">Reset</button>
-    <button type="submit" class="btn-primary" [disabled]="saving">
-      {{ saving ? 'Saving...' : editingId ? 'Update Patient' : 'Register Patient' }}
-    </button>
+    <span class="legend"><span class="legend__star">*</span> Required field</span>
+    <div class="form-footer__actions">
+      <button type="button" class="btn-ghost" (click)="resetForm()">Reset</button>
+      <button type="submit" class="btn-primary" [disabled]="saving">
+        <span class="spinner" *ngIf="saving"></span>
+        {{ saving ? 'Saving...' : editingId ? 'Update Patient' : 'Register Patient' }}
+      </button>
+    </div>
   </div>
 </form>
 

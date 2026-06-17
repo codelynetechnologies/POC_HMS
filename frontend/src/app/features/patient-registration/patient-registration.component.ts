@@ -73,10 +73,15 @@ export class PatientRegistrationComponent implements OnInit {
   editingMrNumber: string | null = null;
   saving = false;
   showSearch = false;
+  loadingMaster = true;
   successMessage = '';
   errorMessage = '';
 
+  readonly skeletonSections = [0, 1, 2];
+  readonly skeletonFields = [0, 1, 2, 3, 4, 5, 6, 7];
+
   private suppressCascadeReset = false;
+  private toastTimer?: ReturnType<typeof setTimeout>;
 
   readonly form: FormGroup = this.fb.group(
     {
@@ -136,10 +141,81 @@ export class PatientRegistrationComponent implements OnInit {
     return this.form.get('additionalDetails') as FormGroup;
   }
 
+  get summaryName(): string {
+    const v = this.form.getRawValue();
+    const name = [v.firstName, v.middleName, v.lastName]
+      .map((p: string) => (p ?? '').trim())
+      .filter(Boolean)
+      .join(' ');
+    return name || 'New Patient';
+  }
+
+  get summaryInitials(): string {
+    const v = this.form.getRawValue();
+    const first = (v.firstName ?? '').trim();
+    const last = (v.lastName ?? '').trim();
+    const letters = (first[0] ?? '') + (last[0] ?? first[1] ?? '');
+    return (letters || 'NP').toUpperCase();
+  }
+
+  get typeLabel(): string {
+    return nameOf(this.patientTypes, this.form.get('patientType')?.value) ?? '';
+  }
+
+  get genderLabel(): string {
+    return nameOf(this.genders, this.form.get('gender')?.value) ?? '';
+  }
+
+  get bloodLabel(): string {
+    return nameOf(this.bloodGroups, this.form.get('bloodGroupCode')?.value) ?? '';
+  }
+
+  get ageLabel(): string {
+    const v = this.form.getRawValue();
+    const parts: string[] = [];
+    if (v.ageYears != null && v.ageYears !== '') {
+      parts.push(`${v.ageYears}Y`);
+    }
+    if (v.ageMonths != null && v.ageMonths !== '') {
+      parts.push(`${v.ageMonths}M`);
+    }
+    if (v.ageDays != null && v.ageDays !== '') {
+      parts.push(`${v.ageDays}D`);
+    }
+    return parts.join(' ');
+  }
+
+  get warningAlerts(): string {
+    return this.form.get('additionalDetails.warningAlerts')?.value ?? '';
+  }
+
+  get appointmentRef(): string {
+    return this.form.get('appointmentReference')?.value ?? '';
+  }
+
   ngOnInit(): void {
     this.loadMasterData();
     this.wireCascades();
     this.wireAgeFromDob();
+    this.destroyRef.onDestroy(() => clearTimeout(this.toastTimer));
+  }
+
+  private flash(success: string, error: string): void {
+    this.successMessage = success;
+    this.errorMessage = error;
+    clearTimeout(this.toastTimer);
+    if (success || error) {
+      this.toastTimer = setTimeout(() => {
+        this.successMessage = '';
+        this.errorMessage = '';
+      }, 5000);
+    }
+  }
+
+  dismissToast(): void {
+    clearTimeout(this.toastTimer);
+    this.successMessage = '';
+    this.errorMessage = '';
   }
 
   private loadMasterData(): void {
@@ -158,8 +234,14 @@ export class PatientRegistrationComponent implements OnInit {
       incomeCategories: this.dropdowns.get('IncomeCategory'),
       countries: this.dropdowns.get('Country'),
     }).subscribe({
-      next: (data) => Object.assign(this, data),
-      error: (err) => (this.errorMessage = err?.friendlyMessage ?? 'Failed to load master data.'),
+      next: (data) => {
+        Object.assign(this, data);
+        this.loadingMaster = false;
+      },
+      error: (err) => {
+        this.loadingMaster = false;
+        this.flash('', err?.friendlyMessage ?? 'Failed to load master data.');
+      },
     });
   }
 
@@ -226,12 +308,11 @@ export class PatientRegistrationComponent implements OnInit {
   }
 
   private loadPatient(id: number): void {
-    this.errorMessage = '';
-    this.successMessage = '';
+    this.dismissToast();
     this.patients.getById(id).subscribe({
       next: (patient) => {
         if (!patient) {
-          this.errorMessage = 'Patient could not be loaded.';
+          this.flash('', 'Patient could not be loaded.');
           return;
         }
         const addr = patient.address ?? {};
@@ -243,7 +324,7 @@ export class PatientRegistrationComponent implements OnInit {
         }).subscribe({
           error: (err) => {
             this.suppressCascadeReset = false;
-            this.errorMessage = err?.friendlyMessage ?? 'Failed to load address details.';
+            this.flash('', err?.friendlyMessage ?? 'Failed to load address details.');
           },
           next: (geo) => {
           this.states = geo.states;
@@ -298,20 +379,18 @@ export class PatientRegistrationComponent implements OnInit {
             },
           });
           this.suppressCascadeReset = false;
-          this.successMessage = `Loaded ${patient.mrNumber} for editing.`;
+          this.flash(`Loaded ${patient.mrNumber} for editing.`, '');
           },
         });
       },
-      error: (err) => (this.errorMessage = err?.friendlyMessage ?? 'Patient could not be loaded.'),
+      error: (err) => this.flash('', err?.friendlyMessage ?? 'Patient could not be loaded.'),
     });
   }
 
   save(): void {
-    this.successMessage = '';
-    this.errorMessage = '';
     if (this.form.invalid) {
       this.form.markAllAsTouched();
-      this.errorMessage = 'Please correct the highlighted fields before saving.';
+      this.flash('', 'Please correct the highlighted fields before saving.');
       return;
     }
 
@@ -322,15 +401,15 @@ export class PatientRegistrationComponent implements OnInit {
         if (res.success && res.data) {
           this.editingId = res.data.id;
           this.editingMrNumber = res.data.mrNumber ?? null;
-          this.successMessage = `${res.message ?? 'Patient saved.'} MR Number: ${res.data.mrNumber}`;
+          this.flash(`${res.message ?? 'Patient saved.'} MR Number: ${res.data.mrNumber}`, '');
           this.form.markAsPristine();
         } else {
-          this.errorMessage = res.errors?.join(' ') || res.message || 'Save failed.';
+          this.flash('', res.errors?.join(' ') || res.message || 'Save failed.');
         }
       },
       error: (err) => {
         this.saving = false;
-        this.errorMessage = err?.friendlyMessage ?? 'Save failed.';
+        this.flash('', err?.friendlyMessage ?? 'Save failed.');
       },
     });
   }
@@ -338,8 +417,7 @@ export class PatientRegistrationComponent implements OnInit {
   resetForm(): void {
     this.editingId = null;
     this.editingMrNumber = null;
-    this.successMessage = '';
-    this.errorMessage = '';
+    this.dismissToast();
     this.states = [];
     this.cities = [];
     this.areas = [];

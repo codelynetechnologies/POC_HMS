@@ -1,18 +1,88 @@
 .section {
-  padding: 18px 20px 20px;
   margin-bottom: 18px;
+  padding: 0;
+  overflow: hidden;
 }
 
-.section > .hms-section-title {
-  margin-bottom: 16px;
-  padding-bottom: 10px;
+.section__head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 13px 20px;
+  background: linear-gradient(90deg, var(--hms-primary-light), #ffffff 70%);
   border-bottom: 1px solid var(--hms-border);
+}
+
+.section__head--button {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--hms-border);
+  border-radius: 0;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+}
+
+.section__num {
+  font-family: 'SFMono-Regular', ui-monospace, 'Cascadia Mono', Menlo, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--hms-primary);
+  opacity: 0.5;
+}
+
+.section__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--hms-primary-light);
+  color: var(--hms-primary);
+  flex-shrink: 0;
+}
+
+.section__icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.section__title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--hms-text);
+}
+
+.section__sub {
+  font-size: 11.5px;
+  color: var(--hms-text-muted);
+  margin-top: 2px;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+.section__head--button .toggle {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--hms-primary);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section__body {
+  padding: 18px 20px 20px;
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 14px 18px;
+  gap: 16px 18px;
 }
 
 @media (max-width: 900px) {
@@ -40,6 +110,12 @@
   grid-column: 1 / -1;
 }
 
+@media (max-width: 560px) {
+  .field.span-2 {
+    grid-column: 1 / -1;
+  }
+}
+
 .age-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -60,28 +136,9 @@
 .placeholder-note {
   color: var(--hms-text-muted);
   font-size: 13px;
-  background: #f7f9fb;
+  background: #f6f9fa;
   border: 1px dashed var(--hms-border);
   border-radius: var(--hms-radius);
   padding: 14px 16px;
-}
-
-.collapsible-header {
-  cursor: pointer;
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 0 0 10px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--hms-border);
-}
-
-.collapsible-header .toggle {
-  font-size: 13px;
-  color: var(--hms-primary);
-  font-weight: 600;
+  margin-top: 16px;
 }
