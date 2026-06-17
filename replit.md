@@ -6,14 +6,16 @@ Patient Registration module to a modern stack: **Angular 18** frontend + **.NET 
 
 ## Run & Operate
 
-- The app runs on Replit via the `artifacts/api-server: API Server` workflow.
-- A single .NET service serves the compiled Angular app at `/` and the API at `/api`.
+- Two artifacts run on Replit and are combined by the path-based deployment router:
+  - `artifacts/web: web` — serves the compiled Angular app at `/` (static).
+  - `artifacts/api-server: API Server` — the .NET 8 Web API at `/api`.
 - Angular UI: `/` · API: `/api` · Swagger: `/api/swagger` · Health: `/api/healthz`
 - Backend dev: `dotnet run --project backend/src/HMS.PatientRegistration.Api/HMS.PatientRegistration.Api.csproj`
 - Backend tests: `cd backend && dotnet test`
 - Frontend dev (standalone): `cd frontend && npm start`
-- Rebuild Angular into the API: `cd frontend && npm run build` then copy
-  `dist/hms-frontend/browser/*` → `backend/src/HMS.PatientRegistration.Api/wwwroot/`
+- Rebuild Angular for the web artifact: `cd frontend && npm run build` (outputs to
+  `frontend/dist/hms-frontend/browser`, which the `web` artifact serves directly). Restart the
+  `artifacts/web: web` workflow to pick up a fresh build.
 
 ## Stack
 
@@ -26,7 +28,7 @@ Patient Registration module to a modern stack: **Angular 18** frontend + **.NET 
 
 - Backend solution: `backend/` (`HMS.PatientRegistration.sln`, projects under `backend/src/`)
 - Angular app: `frontend/src/app/` (`core/`, `features/patient-registration/`, `shared/`)
-- Angular build output served from: `backend/src/HMS.PatientRegistration.Api/wwwroot/`
+- Angular build output served from: `frontend/dist/hms-frontend/browser/` (by the `web` artifact)
 - Seed data + dropdown codes: `backend/src/HMS.PatientRegistration.Infrastructure/Data/`
 - Artifact/proxy config: `artifacts/api-server/.replit-artifact/artifact.toml`
 - Docs: `README.md`, `docs/ARCHITECTURE.md`, `docs/MIGRATION_STRATEGY.md`, `docs/API_DOCUMENTATION.md`
@@ -39,7 +41,9 @@ Patient Registration module to a modern stack: **Angular 18** frontend + **.NET 
 - Manual mapping extensions instead of AutoMapper (avoids GHSA-rvv3-g6hj-g44x; transparent).
 - Mapping copies BOTH code and name from the request; names are NOT derived server-side, so
   the Angular client resolves and sends both code + name for each coded field at submit.
-- Single .NET service serves SPA + API (one origin) — robust behind Replit's path proxy.
+- Split deploy: static Angular `web` artifact at `/` + .NET API at `/api`, combined by the
+  path-based autoscale router. Needed because a `kind="api"` artifact alone is not publishable
+  (publish UI shows "nothing to publish"); a `kind="web"` artifact at `/` makes the project deployable.
 - Enums: Gender 1=Male,2=Female,3=Other; PatientType 1=New,2=Existing,3=Staff,4=Newborn.
 
 ## Product
@@ -61,8 +65,12 @@ Ships with 5 seed patients and full seed dropdowns.
   `artifact.toml` (e.g. the `.csproj` path for `dotnet run`).
 - `rxjs` can install without its type declarations if a prior npm install was interrupted
   (TS7016 "Could not find a declaration file for module 'rxjs'") — reinstall `rxjs` to fix.
-- After changing Angular code you must rebuild and re-copy into `wwwroot`; the running .NET
-  service serves the static build, not a live Angular dev server.
+- After changing Angular code you must rebuild (`cd frontend && npm run build`) and restart the
+  `artifacts/web: web` workflow; it serves the static build, not a live Angular dev server.
+- `publicDir` in an artifact's `artifact.toml` is resolved relative to the repo root, not the
+  artifact dir (e.g. `frontend/dist/hms-frontend/browser`).
+- Angular CLI prompts for analytics on first `ng build` and hangs non-interactive workflow runs;
+  disabled via `cli.analytics: false` in `angular.json`.
 
 ## Pointers
 

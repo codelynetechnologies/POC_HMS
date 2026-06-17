@@ -1,0 +1,16 @@
+{
+  "name": "@workspace/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "([ -f ../../frontend/dist/hms-frontend/browser/index.html ] || (npm --prefix ../../frontend install && npm --prefix ../../frontend run build)) && vite preview --config vite.config.ts --host 0.0.0.0",
+    "build": "npm --prefix ../../frontend install && npm --prefix ../../frontend run build",
+    "serve": "vite preview --config vite.config.ts --host 0.0.0.0",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "vite": "catalog:"
+  }
+}
