@@ -1,0 +1,15 @@
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Release/net8.0/HMS.PatientRegistration.Infrastructure.deps.json
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Release/net8.0/HMS.PatientRegistration.Infrastructure.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Release/net8.0/HMS.PatientRegistration.Infrastructure.pdb
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Release/net8.0/HMS.PatientRegistration.Domain.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Release/net8.0/HMS.PatientRegistration.Domain.pdb
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/HMS.PatientRegistration.Infrastructure.csproj.AssemblyReference.cache
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/HMS.PatientRegistration.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/HMS.PatientRegistration.Infrastructure.AssemblyInfoInputs.cache
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/HMS.PatientRegistration.Infrastructure.AssemblyInfo.cs
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/HMS.PatientRegistration.Infrastructure.csproj.CoreCompileInputs.cache
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/HMS.Pati.A26EF75F.Up2Date
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/HMS.PatientRegistration.Infrastructure.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/refint/HMS.PatientRegistration.Infrastructure.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/HMS.PatientRegistration.Infrastructure.pdb
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Release/net8.0/ref/HMS.PatientRegistration.Infrastructure.dll

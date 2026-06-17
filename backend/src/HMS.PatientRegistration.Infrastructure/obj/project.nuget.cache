@@ -1,13 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "rZAQpJD5dv8=",
+  "dgSpecHash": "d5i8rCc6b4c=",
   "success": true,
   "projectFilePath": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/HMS.PatientRegistration.Infrastructure.csproj",
   "expectedPackageFiles": [
     "/home/runner/.nuget/packages/azure.core/1.35.0/azure.core.1.35.0.nupkg.sha512",
     "/home/runner/.nuget/packages/azure.identity/1.10.3/azure.identity.1.10.3.nupkg.sha512",
-    "/home/runner/.nuget/packages/fluentvalidation/11.9.0/fluentvalidation.11.9.0.nupkg.sha512",
-    "/home/runner/.nuget/packages/fluentvalidation.dependencyinjectionextensions/11.9.0/fluentvalidation.dependencyinjectionextensions.11.9.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.csharp/4.5.0/microsoft.csharp.4.5.0.nupkg.sha512",
     "/home/runner/.nuget/packages/microsoft.data.sqlclient/5.1.5/microsoft.data.sqlclient.5.1.5.nupkg.sha512",

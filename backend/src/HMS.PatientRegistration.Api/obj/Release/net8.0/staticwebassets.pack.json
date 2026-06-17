@@ -1,0 +1,45 @@
+{
+  "Files": [
+    {
+      "Id": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-KLED3LX2.js",
+      "PackagePath": "staticwebassets/chunk-KLED3LX2.js"
+    },
+    {
+      "Id": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-NQ5RZPFP.js",
+      "PackagePath": "staticwebassets/chunk-NQ5RZPFP.js"
+    },
+    {
+      "Id": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/main-IXB2BOBR.js",
+      "PackagePath": "staticwebassets/main-IXB2BOBR.js"
+    },
+    {
+      "Id": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/polyfills-FFHMD2TL.js",
+      "PackagePath": "staticwebassets/polyfills-FFHMD2TL.js"
+    },
+    {
+      "Id": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/styles-YT4OBXNK.css",
+      "PackagePath": "staticwebassets/styles-YT4OBXNK.css"
+    },
+    {
+      "Id": "obj/Release/net8.0/staticwebassets/msbuild.HMS.PatientRegistration.Api.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Release/net8.0/staticwebassets/msbuild.build.HMS.PatientRegistration.Api.props",
+      "PackagePath": "build\\HMS.PatientRegistration.Api.props"
+    },
+    {
+      "Id": "obj/Release/net8.0/staticwebassets/msbuild.buildMultiTargeting.HMS.PatientRegistration.Api.props",
+      "PackagePath": "buildMultiTargeting\\HMS.PatientRegistration.Api.props"
+    },
+    {
+      "Id": "obj/Release/net8.0/staticwebassets/msbuild.buildTransitive.HMS.PatientRegistration.Api.props",
+      "PackagePath": "buildTransitive\\HMS.PatientRegistration.Api.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -46,36 +46,6 @@
           }
         }
       },
-      "FluentValidation/11.9.0": {
-        "type": "package",
-        "compile": {
-          "lib/net8.0/FluentValidation.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net8.0/FluentValidation.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "FluentValidation.DependencyInjectionExtensions/11.9.0": {
-        "type": "package",
-        "dependencies": {
-          "FluentValidation": "11.9.0",
-          "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
         "type": "package",
         "compile": {
@@ -1036,20 +1006,6 @@
           }
         }
       },
-      "HMS.PatientRegistration.Application/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "FluentValidation.DependencyInjectionExtensions": "11.9.0",
-          "HMS.PatientRegistration.Domain": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/HMS.PatientRegistration.Application.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/HMS.PatientRegistration.Application.dll": {}
-        }
-      },
       "HMS.PatientRegistration.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -1103,48 +1059,6 @@
         "azureicon.png",
         "lib/netstandard2.0/Azure.Identity.dll",
         "lib/netstandard2.0/Azure.Identity.xml"
-      ]
-    },
-    "FluentValidation/11.9.0": {
-      "sha512": "VneVlTvwYDkfHV5av3QrQ0amALgrLX6LV94wlYyEsh0B/klJBW7C8y2eAtj5tOZ3jH6CAVpr4s1ZGgew/QWyig==",
-      "type": "package",
-      "path": "fluentvalidation/11.9.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "fluent-validation-icon.png",
-        "fluentvalidation.11.9.0.nupkg.sha512",
-        "fluentvalidation.nuspec",
-        "lib/net5.0/FluentValidation.dll",
-        "lib/net5.0/FluentValidation.xml",
-        "lib/net6.0/FluentValidation.dll",
-        "lib/net6.0/FluentValidation.xml",
-        "lib/net7.0/FluentValidation.dll",
-        "lib/net7.0/FluentValidation.xml",
-        "lib/net8.0/FluentValidation.dll",
-        "lib/net8.0/FluentValidation.xml",
-        "lib/netstandard2.0/FluentValidation.dll",
-        "lib/netstandard2.0/FluentValidation.xml",
-        "lib/netstandard2.1/FluentValidation.dll",
-        "lib/netstandard2.1/FluentValidation.xml"
-      ]
-    },
-    "FluentValidation.DependencyInjectionExtensions/11.9.0": {
-      "sha512": "Ko++xvN7HUf4WlHJL6bhsybUj/uho8ApOYIdxGjpF8Ot7Fukz6LRfRJ06H0KXhWqmMHWEbu89hJbjKJHtg7b9g==",
-      "type": "package",
-      "path": "fluentvalidation.dependencyinjectionextensions/11.9.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "README.md",
-        "fluent-validation-icon.png",
-        "fluentvalidation.dependencyinjectionextensions.11.9.0.nupkg.sha512",
-        "fluentvalidation.dependencyinjectionextensions.nuspec",
-        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.dll",
-        "lib/netstandard2.0/FluentValidation.DependencyInjectionExtensions.xml",
-        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.dll",
-        "lib/netstandard2.1/FluentValidation.DependencyInjectionExtensions.xml"
       ]
     },
     "Microsoft.Bcl.AsyncInterfaces/1.1.1": {
@@ -2897,11 +2811,6 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "HMS.PatientRegistration.Application/1.0.0": {
-      "type": "project",
-      "path": "../HMS.PatientRegistration.Application/HMS.PatientRegistration.Application.csproj",
-      "msbuildProject": "../HMS.PatientRegistration.Application/HMS.PatientRegistration.Application.csproj"
-    },
     "HMS.PatientRegistration.Domain/1.0.0": {
       "type": "project",
       "path": "../HMS.PatientRegistration.Domain/HMS.PatientRegistration.Domain.csproj",
@@ -2910,7 +2819,6 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
-      "HMS.PatientRegistration.Application >= 1.0.0",
       "HMS.PatientRegistration.Domain >= 1.0.0",
       "Microsoft.EntityFrameworkCore >= 8.0.8",
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.8",
@@ -2944,9 +2852,6 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/HMS.PatientRegistration.Application.csproj": {
-              "projectPath": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/HMS.PatientRegistration.Application.csproj"
-            },
             "/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/HMS.PatientRegistration.Domain.csproj": {
               "projectPath": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/HMS.PatientRegistration.Domain.csproj"
             }

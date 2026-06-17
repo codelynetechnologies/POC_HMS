@@ -1,0 +1,15 @@
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/bin/Release/net8.0/HMS.PatientRegistration.Application.deps.json
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/bin/Release/net8.0/HMS.PatientRegistration.Application.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/bin/Release/net8.0/HMS.PatientRegistration.Application.pdb
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/bin/Release/net8.0/HMS.PatientRegistration.Domain.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/bin/Release/net8.0/HMS.PatientRegistration.Domain.pdb
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/HMS.PatientRegistration.Application.csproj.AssemblyReference.cache
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/HMS.PatientRegistration.Application.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/HMS.PatientRegistration.Application.AssemblyInfoInputs.cache
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/HMS.PatientRegistration.Application.AssemblyInfo.cs
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/HMS.PatientRegistration.Application.csproj.CoreCompileInputs.cache
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/HMS.Pati.823C2F1E.Up2Date
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/HMS.PatientRegistration.Application.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/refint/HMS.PatientRegistration.Application.dll
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/HMS.PatientRegistration.Application.pdb
+/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/obj/Release/net8.0/ref/HMS.PatientRegistration.Application.dll

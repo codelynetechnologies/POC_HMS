@@ -6,9 +6,7 @@
 /home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Debug/net8.0/HMS.PatientRegistration.Infrastructure.deps.json
 /home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Debug/net8.0/HMS.PatientRegistration.Infrastructure.dll
 /home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Debug/net8.0/HMS.PatientRegistration.Infrastructure.pdb
-/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Debug/net8.0/HMS.PatientRegistration.Application.dll
 /home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Debug/net8.0/HMS.PatientRegistration.Domain.dll
-/home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Debug/net8.0/HMS.PatientRegistration.Application.pdb
 /home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/bin/Debug/net8.0/HMS.PatientRegistration.Domain.pdb
 /home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Debug/net8.0/HMS.Pati.A26EF75F.Up2Date
 /home/runner/workspace/backend/src/HMS.PatientRegistration.Infrastructure/obj/Debug/net8.0/HMS.PatientRegistration.Infrastructure.dll

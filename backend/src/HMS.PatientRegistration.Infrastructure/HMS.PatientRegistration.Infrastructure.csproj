@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\HMS.PatientRegistration.Application\HMS.PatientRegistration.Application.csproj" />
     <ProjectReference Include="..\HMS.PatientRegistration.Domain\HMS.PatientRegistration.Domain.csproj" />
   </ItemGroup>
 

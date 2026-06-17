@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "o8O42HQ9gNybVqsvg73kmxJivSyVhEys9FSMvs4lxXE=",
+  "Hash": "avdxNAivwtaBdmLPzCuKhl3zWPG7nqOMy61IEFnDrBk=",
   "Source": "HMS.PatientRegistration.Api",
   "BasePath": "_content/HMS.PatientRegistration.Api",
   "Mode": "Default",
@@ -17,12 +17,12 @@
   ],
   "Assets": [
     {
-      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-KLED3LX2.js",
+      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-EGCZ6VRE.js",
       "SourceId": "HMS.PatientRegistration.Api",
       "SourceType": "Discovered",
       "ContentRoot": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/",
       "BasePath": "_content/HMS.PatientRegistration.Api",
-      "RelativePath": "chunk-KLED3LX2.js",
+      "RelativePath": "chunk-EGCZ6VRE.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -33,15 +33,15 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/chunk-KLED3LX2.js"
+      "OriginalItemSpec": "wwwroot/chunk-EGCZ6VRE.js"
     },
     {
-      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-NQ5RZPFP.js",
+      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/chunk-GDFSQ7C5.js",
       "SourceId": "HMS.PatientRegistration.Api",
       "SourceType": "Discovered",
       "ContentRoot": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/",
       "BasePath": "_content/HMS.PatientRegistration.Api",
-      "RelativePath": "chunk-NQ5RZPFP.js",
+      "RelativePath": "chunk-GDFSQ7C5.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -52,7 +52,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/chunk-NQ5RZPFP.js"
+      "OriginalItemSpec": "wwwroot/chunk-GDFSQ7C5.js"
     },
     {
       "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/index.html",
@@ -74,12 +74,12 @@
       "OriginalItemSpec": "wwwroot/index.html"
     },
     {
-      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/main-IXB2BOBR.js",
+      "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/main-NL367XTL.js",
       "SourceId": "HMS.PatientRegistration.Api",
       "SourceType": "Discovered",
       "ContentRoot": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/",
       "BasePath": "_content/HMS.PatientRegistration.Api",
-      "RelativePath": "main-IXB2BOBR.js",
+      "RelativePath": "main-NL367XTL.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -90,7 +90,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/main-IXB2BOBR.js"
+      "OriginalItemSpec": "wwwroot/main-NL367XTL.js"
     },
     {
       "Identity": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Api/wwwroot/polyfills-FFHMD2TL.js",

@@ -152,9 +152,6 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/HMS.PatientRegistration.Application.csproj": {
-                "projectPath": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Application/HMS.PatientRegistration.Application.csproj"
-              },
               "/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/HMS.PatientRegistration.Domain.csproj": {
                 "projectPath": "/home/runner/workspace/backend/src/HMS.PatientRegistration.Domain/HMS.PatientRegistration.Domain.csproj"
               }

@@ -1,13 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  Validators,
-} from '@angular/forms';
+import { Component, DestroyRef, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 
 import { DropdownService } from '../../core/services/dropdown.service';
@@ -19,6 +13,12 @@ import {
   PatientSearchResult,
   PatientType,
 } from '../../core/models/patient.models';
+import {
+  ageOrDateOfBirthRequired,
+  computeAge,
+  dateNotInFuture,
+  nameOf,
+} from './patient-form.validators';
 
 import { PersonalDetailsComponent } from './sections/personal-details.component';
 import { AdditionalDetailsComponent } from './sections/additional-details.component';
@@ -47,6 +47,7 @@ export class PatientRegistrationComponent implements OnInit {
   private readonly fb = inject(FormBuilder);
   private readonly dropdowns = inject(DropdownService);
   private readonly patients = inject(PatientService);
+  private readonly destroyRef = inject(DestroyRef);
 
   // Static master data.
   prefixes: DropdownItem[] = [];
@@ -163,44 +164,56 @@ export class PatientRegistrationComponent implements OnInit {
   }
 
   private wireCascades(): void {
-    this.addressForm.get('countryCode')!.valueChanges.subscribe((code: string) => {
-      this.dropdowns.getCascaded('State', code).subscribe((s) => (this.states = s));
-      if (!this.suppressCascadeReset) {
-        this.addressForm.patchValue({ stateCode: '', cityCode: '', areaCode: '' });
-        this.cities = [];
-        this.areas = [];
-      }
-    });
+    this.addressForm
+      .get('countryCode')!
+      .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((code: string) => {
+        this.dropdowns.getCascaded('State', code).subscribe((s) => (this.states = s));
+        if (!this.suppressCascadeReset) {
+          this.addressForm.patchValue({ stateCode: '', cityCode: '', areaCode: '' });
+          this.cities = [];
+          this.areas = [];
+        }
+      });
 
-    this.addressForm.get('stateCode')!.valueChanges.subscribe((code: string) => {
-      this.dropdowns.getCascaded('City', code).subscribe((c) => (this.cities = c));
-      if (!this.suppressCascadeReset) {
-        this.addressForm.patchValue({ cityCode: '', areaCode: '' });
-        this.areas = [];
-      }
-    });
+    this.addressForm
+      .get('stateCode')!
+      .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((code: string) => {
+        this.dropdowns.getCascaded('City', code).subscribe((c) => (this.cities = c));
+        if (!this.suppressCascadeReset) {
+          this.addressForm.patchValue({ cityCode: '', areaCode: '' });
+          this.areas = [];
+        }
+      });
 
-    this.addressForm.get('cityCode')!.valueChanges.subscribe((code: string) => {
-      this.dropdowns.getCascaded('Area', code).subscribe((a) => (this.areas = a));
-      if (!this.suppressCascadeReset) {
-        this.addressForm.patchValue({ areaCode: '' });
-      }
-    });
+    this.addressForm
+      .get('cityCode')!
+      .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((code: string) => {
+        this.dropdowns.getCascaded('Area', code).subscribe((a) => (this.areas = a));
+        if (!this.suppressCascadeReset) {
+          this.addressForm.patchValue({ areaCode: '' });
+        }
+      });
   }
 
   private wireAgeFromDob(): void {
-    this.form.get('dateOfBirth')!.valueChanges.subscribe((value: string) => {
-      if (this.suppressCascadeReset || !value) {
-        return;
-      }
-      const age = computeAge(new Date(value));
-      if (age) {
-        this.form.patchValue(
-          { ageYears: age.years, ageMonths: age.months, ageDays: age.days },
-          { emitEvent: false },
-        );
-      }
-    });
+    this.form
+      .get('dateOfBirth')!
+      .valueChanges.pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value: string) => {
+        if (this.suppressCascadeReset || !value) {
+          return;
+        }
+        const age = computeAge(new Date(value));
+        if (age) {
+          this.form.patchValue(
+            { ageYears: age.years, ageMonths: age.months, ageDays: age.days },
+            { emitEvent: false },
+          );
+        }
+      });
   }
 
   openSearch(): void {
@@ -408,52 +421,4 @@ export class PatientRegistrationComponent implements OnInit {
       },
     };
   }
-}
-
-function nameOf(list: DropdownItem[], code: string | null | undefined): string | null {
-  if (!code) {
-    return null;
-  }
-  return list.find((i) => i.code === code)?.name ?? null;
-}
-
-function dateNotInFuture(control: AbstractControl): ValidationErrors | null {
-  if (!control.value) {
-    return null;
-  }
-  const value = new Date(control.value);
-  const today = new Date();
-  today.setHours(23, 59, 59, 999);
-  return value > today ? { future: true } : null;
-}
-
-function ageOrDateOfBirthRequired(group: AbstractControl): ValidationErrors | null {
-  const dob = group.get('dateOfBirth')?.value;
-  const years = group.get('ageYears')?.value;
-  const months = group.get('ageMonths')?.value;
-  const days = group.get('ageDays')?.value;
-  const hasAge = years != null || months != null || days != null;
-  return dob || hasAge ? null : { ageOrDobRequired: true };
-}
-
-function computeAge(dob: Date): { years: number; months: number; days: number } | null {
-  if (isNaN(dob.getTime())) {
-    return null;
-  }
-  const now = new Date();
-  let years = now.getFullYear() - dob.getFullYear();
-  let months = now.getMonth() - dob.getMonth();
-  let days = now.getDate() - dob.getDate();
-  if (days < 0) {
-    months -= 1;
-    days += new Date(now.getFullYear(), now.getMonth(), 0).getDate();
-  }
-  if (months < 0) {
-    years -= 1;
-    months += 12;
-  }
-  if (years < 0) {
-    return null;
-  }
-  return { years, months, days };
 }
