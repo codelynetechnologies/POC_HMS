@@ -1,13 +1,10 @@
+using HMS.PatientRegistration.Domain.Common;
 using HMS.PatientRegistration.Domain.Entities;
 using HMS.PatientRegistration.Domain.Interfaces;
 using HMS.PatientRegistration.Infrastructure.Data;
 
 namespace HMS.PatientRegistration.Infrastructure.Repositories.Mock;
 
-/// <summary>
-/// In-memory patient repository used when DataMode = Mock. Thread-safe and
-/// pre-seeded with demo patients so the app is fully usable without a database.
-/// </summary>
 public class MockPatientRegistrationRepository : IPatientRegistrationRepository
 {
     private static readonly List<Patient> Store = SeedData.GetPatients();
@@ -22,12 +19,12 @@ public class MockPatientRegistrationRepository : IPatientRegistrationRepository
                 var existing = Store.FirstOrDefault(p => p.Id == patient.Id);
                 if (existing is not null)
                 {
-                    patient.CreatedOn = existing.CreatedOn;
-                    patient.ModifiedOn = DateTime.UtcNow;
                     if (string.IsNullOrWhiteSpace(patient.MrNumber))
                     {
                         patient.MrNumber = existing.MrNumber;
                     }
+                    patient.CreatedOn = existing.CreatedOn;
+                    patient.CreatedBy = existing.CreatedBy;
                     Store.Remove(existing);
                     Store.Add(patient);
                     return Task.FromResult(patient);
@@ -36,24 +33,25 @@ public class MockPatientRegistrationRepository : IPatientRegistrationRepository
 
             var nextId = Store.Count == 0 ? 1 : Store.Max(p => p.Id) + 1;
             patient.Id = nextId;
-            patient.CreatedOn = DateTime.UtcNow;
-            patient.ModifiedOn = null;
             if (string.IsNullOrWhiteSpace(patient.MrNumber))
             {
                 patient.MrNumber = $"MR{nextId:0000}";
             }
+            patient.IsActive = true;
             Store.Add(patient);
             return Task.FromResult(patient);
         }
     }
 
-    public Task<IReadOnlyList<Patient>> SearchAsync(
+    public Task<PagedResult<Patient>> SearchAsync(
         string? mrNumber, string? firstName, string? lastName,
-        string? mobileNumber, string? civilId, CancellationToken cancellationToken = default)
+        string? mobileNumber, string? civilId,
+        int page, int pageSize,
+        CancellationToken cancellationToken = default)
     {
         lock (Lock)
         {
-            IEnumerable<Patient> query = Store;
+            IEnumerable<Patient> query = Store.Where(p => p.IsActive);
 
             if (!string.IsNullOrWhiteSpace(mrNumber))
                 query = query.Where(p => (p.MrNumber ?? "").Contains(mrNumber, StringComparison.OrdinalIgnoreCase));
@@ -66,8 +64,21 @@ public class MockPatientRegistrationRepository : IPatientRegistrationRepository
             if (!string.IsNullOrWhiteSpace(civilId))
                 query = query.Where(p => (p.CivilId ?? "").Contains(civilId, StringComparison.OrdinalIgnoreCase));
 
-            IReadOnlyList<Patient> result = query.OrderBy(p => p.Id).ToList();
-            return Task.FromResult(result);
+            var ordered = query.OrderBy(p => p.Id).ToList();
+            var totalCount = ordered.Count;
+
+            if (pageSize > 0)
+            {
+                ordered = ordered.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            }
+
+            return Task.FromResult(new PagedResult<Patient>
+            {
+                Items = ordered,
+                TotalCount = totalCount,
+                Page = page,
+                PageSize = pageSize,
+            });
         }
     }
 
@@ -75,7 +86,7 @@ public class MockPatientRegistrationRepository : IPatientRegistrationRepository
     {
         lock (Lock)
         {
-            return Task.FromResult(Store.FirstOrDefault(p => p.Id == id));
+            return Task.FromResult(Store.FirstOrDefault(p => p.Id == id && p.IsActive));
         }
     }
 
@@ -85,7 +96,7 @@ public class MockPatientRegistrationRepository : IPatientRegistrationRepository
         {
             return Task.FromResult(
                 Store.FirstOrDefault(p =>
-                    string.Equals(p.MrNumber, mrNumber, StringComparison.OrdinalIgnoreCase)));
+                    p.IsActive && string.Equals(p.MrNumber, mrNumber, StringComparison.OrdinalIgnoreCase)));
         }
     }
 }

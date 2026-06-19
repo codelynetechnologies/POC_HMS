@@ -1,6 +1,6 @@
 # API Documentation
 
-Base URL (on Replit): `/api`
+Base URL: `/api`
 Interactive docs (Swagger UI): `/api/swagger`
 Health check: `GET /api/healthz`
 

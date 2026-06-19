@@ -364,7 +364,7 @@ DELIVERABLES:
 15. API documentation in /docs/API_DOCUMENTATION.md
 
 IMPORTANT IMPLEMENTATION APPROACH:
-Since Replit may not fully support SQL Server locally, implement:
+For local development without SQL Server, implement:
 - Mock repository mode by default
 - SQL Server repository mode configurable by appsettings
 - appsettings.json setting:

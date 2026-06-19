@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { PagedResult } from '../models/auth.models';
 import { ApiResponse } from '../models/api-response.model';
 import {
   PatientRegistrationRequest,
@@ -9,28 +11,28 @@ import {
   PatientSearchResult,
 } from '../models/patient.models';
 
-/** Talks to the modern RESTful patient endpoints under /api/patients. */
 @Injectable({ providedIn: 'root' })
 export class PatientService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = '/api/patients';
+  private readonly baseUrl = `${environment.apiBaseUrl}/patients`;
 
-  /** Create a new patient or update an existing one when an id is supplied. */
   save(request: PatientRegistrationRequest): Observable<ApiResponse<PatientRegistrationResponse>> {
     return this.http.post<ApiResponse<PatientRegistrationResponse>>(this.baseUrl, request);
   }
 
-  /** Fetch a full patient record by id. */
   getById(id: number): Observable<PatientRegistrationResponse | null> {
     return this.http
       .get<ApiResponse<PatientRegistrationResponse>>(`${this.baseUrl}/${id}`)
       .pipe(map((res) => res.data));
   }
 
-  /** Search patients by any subset of criteria. */
-  search(request: PatientSearchRequest): Observable<PatientSearchResult[]> {
+  search(request: PatientSearchRequest): Observable<PagedResult<PatientSearchResult>> {
     return this.http
-      .post<ApiResponse<PatientSearchResult[]>>(`${this.baseUrl}/search`, request)
-      .pipe(map((res) => res.data ?? []));
+      .post<ApiResponse<PagedResult<PatientSearchResult>>>(`${this.baseUrl}/search`, {
+        ...request,
+        page: request.page ?? 1,
+        pageSize: request.pageSize ?? 20,
+      })
+      .pipe(map((res) => res.data ?? { items: [], totalCount: 0, page: 1, pageSize: 20, totalPages: 0 }));
   }
 }

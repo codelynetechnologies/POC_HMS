@@ -41,9 +41,16 @@ testem.log
 .DS_Store
 Thumbs.db
 
-.cursor/rules/nx-rules.mdc
-.github/instructions/nx.instructions.md
+# .NET build output
+**/bin/
+**/obj/
+backend/publish/
 
-# Replit
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Local IDE / cloud agent cache
 .cache/
 .local/

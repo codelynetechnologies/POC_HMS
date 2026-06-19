@@ -82,7 +82,7 @@ The entry point and HTTP concerns.
   (`/api/patients`, `/api/dropdowns`).
 - **Middleware** — global exception handling (every error becomes a consistent
   `ApiResponse`) and request logging.
-- **CORS**, **Swagger** (`/api/swagger`), and **PORT-aware** Kestrel binding for Replit.
+- **CORS**, **Swagger** (`/api/swagger`), and **PORT-aware** Kestrel binding for container/cloud deploys.
 - **Static file serving** — serves the compiled Angular app from `wwwroot` and falls back
   to `index.html` for client-side routes.
 
@@ -122,8 +122,8 @@ Key frontend decisions:
 
 ---
 
-## Serving model on Replit
+## Serving model
 
 A single .NET service serves everything: the Angular static build at `/` and the API at
-`/api`. This keeps the deployment to one origin (no cross-origin / host configuration
-needed) and is robust behind Replit's path-based reverse proxy.
+`/api`. This keeps deployment to one origin (no cross-origin configuration needed) and
+works well behind Docker, IIS, or nginx reverse proxies.

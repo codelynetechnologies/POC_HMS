@@ -1,3 +1,4 @@
+using HMS.PatientRegistration.Domain.Common;
 using HMS.PatientRegistration.Domain.Entities;
 
 namespace HMS.PatientRegistration.Domain.Interfaces;
@@ -8,21 +9,18 @@ namespace HMS.PatientRegistration.Domain.Interfaces;
 /// </summary>
 public interface IPatientRegistrationRepository
 {
-    /// <summary>Insert or update a patient (legacy IUD semantics). Returns the saved patient.</summary>
     Task<Patient> UpsertAsync(Patient patient, CancellationToken cancellationToken = default);
 
-    /// <summary>Search patients by any combination of criteria.</summary>
-    Task<IReadOnlyList<Patient>> SearchAsync(
+    Task<PagedResult<Patient>> SearchAsync(
         string? mrNumber,
         string? firstName,
         string? lastName,
         string? mobileNumber,
         string? civilId,
+        int page,
+        int pageSize,
         CancellationToken cancellationToken = default);
 
-    /// <summary>Fetch a single full patient record by its identifier.</summary>
     Task<Patient?> GetByIdAsync(int id, CancellationToken cancellationToken = default);
-
-    /// <summary>Fetch a single full patient record by MR number.</summary>
     Task<Patient?> GetByMrNumberAsync(string mrNumber, CancellationToken cancellationToken = default);
 }

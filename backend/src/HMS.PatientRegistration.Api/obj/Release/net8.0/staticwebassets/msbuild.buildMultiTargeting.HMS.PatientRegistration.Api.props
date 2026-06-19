@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="../build/HMS.PatientRegistration.Api.props" />
-</Project>

@@ -1,0 +1,33 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      DataMode: Mock
+      Security__EnableSwagger: "false"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/api/healthz"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # Optional SQL Server for production-style data mode
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    profiles: ["sqlserver"]
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Your_strong_Password123!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - hms-sql-data:/var/opt/mssql
+
+volumes:
+  hms-sql-data:

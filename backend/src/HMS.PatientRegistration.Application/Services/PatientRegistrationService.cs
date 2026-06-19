@@ -2,11 +2,11 @@ using HMS.PatientRegistration.Application.Common;
 using HMS.PatientRegistration.Application.DTOs;
 using HMS.PatientRegistration.Application.Interfaces;
 using HMS.PatientRegistration.Application.Mapping;
+using HMS.PatientRegistration.Domain.Common;
 using HMS.PatientRegistration.Domain.Interfaces;
 
 namespace HMS.PatientRegistration.Application.Services;
 
-/// <summary>Coordinates patient registration use cases over the repository.</summary>
 public class PatientRegistrationService : IPatientRegistrationService
 {
     private readonly IPatientRegistrationRepository _repository;
@@ -26,7 +26,6 @@ public class PatientRegistrationService : IPatientRegistrationService
             patient.Id = request.Id.Value;
         }
 
-        // Derive age from DOB when DOB is supplied so stored age stays consistent.
         if (request.DateOfBirth.HasValue)
         {
             var (years, months, days) = AgeCalculator.Calculate(request.DateOfBirth.Value);
@@ -39,7 +38,7 @@ public class PatientRegistrationService : IPatientRegistrationService
         return saved.ToResponseDto();
     }
 
-    public async Task<IReadOnlyList<PatientSearchResultDto>> SearchAsync(
+    public async Task<PagedResultDto<PatientSearchResultDto>> SearchAsync(
         PatientSearchRequestDto request, CancellationToken cancellationToken = default)
     {
         var results = await _repository.SearchAsync(
@@ -48,9 +47,11 @@ public class PatientRegistrationService : IPatientRegistrationService
             request.LastName,
             request.MobileNumber,
             request.CivilId,
+            request.Page,
+            request.PageSize,
             cancellationToken);
 
-        return results.Select(p => p.ToSearchResultDto()).ToList();
+        return ToPagedDto(results, p => p.ToSearchResultDto());
     }
 
     public async Task<PatientRegistrationResponseDto?> GetByIdAsync(
@@ -59,4 +60,15 @@ public class PatientRegistrationService : IPatientRegistrationService
         var patient = await _repository.GetByIdAsync(id, cancellationToken);
         return patient?.ToResponseDto();
     }
+
+    private static PagedResultDto<TDto> ToPagedDto<TEntity, TDto>(
+        PagedResult<TEntity> source, Func<TEntity, TDto> mapper) =>
+        new()
+        {
+            Items = source.Items.Select(mapper).ToList(),
+            TotalCount = source.TotalCount,
+            Page = source.Page,
+            PageSize = source.PageSize,
+            TotalPages = source.TotalPages,
+        };
 }

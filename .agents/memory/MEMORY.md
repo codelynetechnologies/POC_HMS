@@ -1,4 +1,1 @@
-- [Replit artifact.toml quirks](artifact-toml-quirks.md) — kind is immutable via verifyAndReplaceArtifactToml; run commands don't execute from repo root (use absolute paths).
-- [Angular npm install on Replit](angular-npm-install.md) — interrupted npm installs can drop rxjs type decls (TS7016); reinstall rxjs to fix.
-- [HMS POC serving model](hms-poc-serving.md) — single .NET service serves Angular static build at / and API at /api; rebuild+copy to wwwroot after Angular changes.
-- [Canvas mockup workflow quirks](canvas-mockup-workflow.md) — modifying/live iframe states, presentArtifact needs artifactId+shapeIds, restart sandbox after adding a new dep (transient useState null error).
+- [HMS POC serving](hms-poc-serving.md) — how the Angular + .NET app is built and served.

@@ -20,7 +20,7 @@ public class PatientRegistrationServiceTests
             LastName = "User",
             MobileNumber = "9990001111",
             Gender = Gender.Male,
-            DateOfBirth = new DateTime(1995, 1, 1)
+            DateOfBirth = new DateTime(1995, 1, 1),
         };
 
         var saved = await service.SaveAsync(request);
@@ -37,7 +37,23 @@ public class PatientRegistrationServiceTests
 
         var results = await service.SearchAsync(new PatientSearchRequestDto { FirstName = "Rahul" });
 
-        Assert.Contains(results, r => r.PatientName.Contains("Rahul"));
+        Assert.Contains(results.Items, r => r.PatientName.Contains("Rahul"));
+    }
+
+    [Fact]
+    public async Task SearchAsync_WithPagination_ReturnsPage()
+    {
+        var service = CreateService();
+
+        var results = await service.SearchAsync(new PatientSearchRequestDto
+        {
+            FirstName = "a",
+            Page = 1,
+            PageSize = 2,
+        });
+
+        Assert.True(results.Items.Count <= 2);
+        Assert.True(results.TotalCount >= results.Items.Count);
     }
 
     [Fact]

@@ -10,39 +10,31 @@ A proof-of-concept that demonstrates migrating a legacy Hospital Management Syst
 The backend exposes **both** the legacy-style endpoints (so existing callers keep working
 during a phased migration) **and** a modern RESTful API that the Angular client consumes.
 
-> This is a demonstration POC. It runs entirely on Replit as a single .NET service that
-> serves the compiled Angular app at `/` and the API at `/api`.
+> Enterprise-ready HMS Patient Registration module built by **Codelyne Technologies**.
+> A single .NET service serves the compiled Angular app at `/` and the API at `/api`.
 
 ---
 
-## What it does
+## Quick Start (Docker)
 
-The Patient Registration screen covers:
+```bash
+docker compose up --build
+# Open http://localhost:8080
+```
 
-- **Personal details** — patient type, title/prefix, name, gender, date of birth (with
-  auto-calculated age), mobile, email, marital status, blood group, civil ID, family name
-- **Additional details** — nationality, race, religion, preferred language, warning alerts
-  (collapsible section)
-- **Residential address** — cascading **Country → State → City → Area** dropdowns + pincode
-- **Professional details** — occupation, profession, income category, company
-- **Insurance & documents** — placeholder section for future expansion
-- **Appointment reference** — link a registration to an appointment
-- **Patient search modal** — find existing patients by MR number, name, mobile, or civil ID
-  and load them back into the form for editing
-- **Validation** — client-side reactive validators that mirror the server-side rules
-
-The app ships with **5 seed patients** and a full set of seed dropdowns.
+See [docs/MIGRATION_GUIDE.md](docs/MIGRATION_GUIDE.md) for full deployment options.
 
 ---
 
-## Running on Replit
-
-The app is already wired into a Replit workflow. Open the preview at `/` to use it.
+## Endpoints
 
 - Angular UI: `/`
 - API base: `/api`
-- Swagger UI: `/api/swagger`
+- Swagger UI: `/api/swagger` (Development only by default)
 - Health check: `/api/healthz`
+- Metrics: `/api/metrics`
+
+---
 
 ## Running locally
 
@@ -106,6 +98,7 @@ The backend reads `DataMode` from `appsettings.json`:
 
 ## Documentation
 
+- [docs/TECHNICAL_ARCHITECTURE.md](docs/TECHNICAL_ARCHITECTURE.md) — full technical architecture & engineering documentation (23 sections)
 - [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — layer responsibilities and design decisions
 - [docs/MIGRATION_STRATEGY.md](docs/MIGRATION_STRATEGY.md) — how to migrate the legacy module
   incrementally using the dual-endpoint approach

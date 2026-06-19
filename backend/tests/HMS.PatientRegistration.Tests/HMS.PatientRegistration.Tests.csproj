@@ -11,6 +11,8 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.22" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
     <PackageReference Include="xunit" Version="2.5.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.5.3" />
@@ -21,6 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\HMS.PatientRegistration.Api\HMS.PatientRegistration.Api.csproj" />
     <ProjectReference Include="..\..\src\HMS.PatientRegistration.Application\HMS.PatientRegistration.Application.csproj" />
     <ProjectReference Include="..\..\src\HMS.PatientRegistration.Infrastructure\HMS.PatientRegistration.Infrastructure.csproj" />
     <ProjectReference Include="..\..\src\HMS.PatientRegistration.Domain\HMS.PatientRegistration.Domain.csproj" />

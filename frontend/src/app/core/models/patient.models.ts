@@ -100,6 +100,8 @@ export interface PatientSearchRequest {
   lastName?: string | null;
   mobileNumber?: string | null;
   civilId?: string | null;
+  page?: number;
+  pageSize?: number;
 }
 
 export interface PatientSearchResult {

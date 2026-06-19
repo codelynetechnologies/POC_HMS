@@ -11,6 +11,9 @@ public class PatientSearchRequestDtoValidator : AbstractValidator<PatientSearchR
         RuleFor(x => x)
             .Must(HasAtLeastOneCriterion)
             .WithMessage("Provide at least one search criterion.");
+
+        RuleFor(x => x.Page).GreaterThanOrEqualTo(1);
+        RuleFor(x => x.PageSize).GreaterThanOrEqualTo(0).LessThanOrEqualTo(100);
     }
 
     private static bool HasAtLeastOneCriterion(PatientSearchRequestDto x) =>

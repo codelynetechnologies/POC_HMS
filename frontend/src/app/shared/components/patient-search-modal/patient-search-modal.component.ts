@@ -126,7 +126,9 @@ import { PatientSearchResult } from '../../../core/models/patient.models';
           </div>
 
           <div class="results-meta" *ngIf="!loading && results.length > 0">
-            Showing {{ results.length }} result{{ results.length === 1 ? '' : 's' }}
+            Showing {{ results.length }} of {{ totalCount }} result{{ totalCount === 1 ? '' : 's' }}
+            <button type="button" class="btn-ghost btn-sm" *ngIf="page > 1" (click)="prevPage()">Previous</button>
+            <button type="button" class="btn-ghost btn-sm" *ngIf="page * pageSize < totalCount" (click)="nextPage()">Next</button>
           </div>
         </div>
       </div>
@@ -164,6 +166,9 @@ export class PatientSearchModalComponent implements AfterViewInit {
   readonly skeletonCols = [0, 1, 2, 3, 4, 5];
 
   results: PatientSearchResult[] = [];
+  totalCount = 0;
+  page = 1;
+  readonly pageSize = 20;
   loading = false;
   searched = false;
   error = '';
@@ -190,9 +195,10 @@ export class PatientSearchModalComponent implements AfterViewInit {
 
     this.loading = true;
     this.error = '';
-    this.patientService.search(raw).subscribe({
+    this.patientService.search({ ...raw, page: this.page, pageSize: this.pageSize }).subscribe({
       next: (res) => {
-        this.results = res;
+        this.results = res.items;
+        this.totalCount = res.totalCount;
         this.searched = true;
         this.loading = false;
       },
@@ -207,7 +213,21 @@ export class PatientSearchModalComponent implements AfterViewInit {
   reset(): void {
     this.form.reset({ mrNumber: '', firstName: '', lastName: '', mobileNumber: '', civilId: '' });
     this.results = [];
+    this.totalCount = 0;
+    this.page = 1;
     this.searched = false;
     this.error = '';
+  }
+
+  nextPage(): void {
+    this.page += 1;
+    this.search();
+  }
+
+  prevPage(): void {
+    if (this.page > 1) {
+      this.page -= 1;
+      this.search();
+    }
   }
 }

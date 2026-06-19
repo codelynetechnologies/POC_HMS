@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { RouterOutlet } from '@angular/router';
           </svg>
         </span>
         <div>
-          <div class="app-header__title">Hospital Management System</div>
+          <div class="app-header__title">{{ appName }}</div>
           <div class="app-header__subtitle">Patient Registration</div>
         </div>
       </div>
@@ -24,7 +25,7 @@ import { RouterOutlet } from '@angular/router';
           <div class="app-header__user-name">Front Desk</div>
           <div class="app-header__user-role">Registration Terminal 01</div>
         </div>
-        <span class="app-header__env">Migration POC</span>
+        <span class="app-header__env">{{ companyName }}</span>
       </div>
     </header>
     <main class="app-main">
@@ -109,4 +110,7 @@ import { RouterOutlet } from '@angular/router';
     `,
   ],
 })
-export class AppComponent {}
+export class AppComponent {
+  readonly appName = environment.appName;
+  readonly companyName = environment.companyName;
+}

@@ -1,3 +1,4 @@
+using HMS.PatientRegistration.Domain.Common;
 using HMS.PatientRegistration.Domain.Entities;
 using HMS.PatientRegistration.Domain.Interfaces;
 using HMS.PatientRegistration.Infrastructure.Persistence;
@@ -5,15 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HMS.PatientRegistration.Infrastructure.Repositories.Sql;
 
-/// <summary>EF Core / SQL Server patient repository used when DataMode = SqlServer.</summary>
 public class SqlPatientRegistrationRepository : IPatientRegistrationRepository
 {
     private readonly PatientRegistrationDbContext _db;
 
-    public SqlPatientRegistrationRepository(PatientRegistrationDbContext db)
-    {
-        _db = db;
-    }
+    public SqlPatientRegistrationRepository(PatientRegistrationDbContext db) => _db = db;
 
     public async Task<Patient> UpsertAsync(Patient patient, CancellationToken cancellationToken = default)
     {
@@ -27,8 +24,6 @@ public class SqlPatientRegistrationRepository : IPatientRegistrationRepository
 
             if (existing is not null)
             {
-                patient.CreatedOn = existing.CreatedOn;
-                patient.ModifiedOn = DateTime.UtcNow;
                 if (string.IsNullOrWhiteSpace(patient.MrNumber))
                 {
                     patient.MrNumber = existing.MrNumber;
@@ -43,8 +38,6 @@ public class SqlPatientRegistrationRepository : IPatientRegistrationRepository
         }
 
         patient.Id = 0;
-        patient.CreatedOn = DateTime.UtcNow;
-        patient.ModifiedOn = null;
         _db.Patients.Add(patient);
         await _db.SaveChangesAsync(cancellationToken);
 
@@ -57,15 +50,15 @@ public class SqlPatientRegistrationRepository : IPatientRegistrationRepository
         return patient;
     }
 
-    public async Task<IReadOnlyList<Patient>> SearchAsync(
+    public async Task<PagedResult<Patient>> SearchAsync(
         string? mrNumber, string? firstName, string? lastName,
-        string? mobileNumber, string? civilId, CancellationToken cancellationToken = default)
+        string? mobileNumber, string? civilId,
+        int page, int pageSize,
+        CancellationToken cancellationToken = default)
     {
         var query = _db.Patients
-            .Include(p => p.Address)
-            .Include(p => p.ProfessionalDetails)
-            .Include(p => p.AdditionalDetails)
-            .AsQueryable();
+            .AsNoTracking()
+            .Where(p => p.IsActive);
 
         if (!string.IsNullOrWhiteSpace(mrNumber))
             query = query.Where(p => p.MrNumber != null && p.MrNumber.Contains(mrNumber));
@@ -78,24 +71,43 @@ public class SqlPatientRegistrationRepository : IPatientRegistrationRepository
         if (!string.IsNullOrWhiteSpace(civilId))
             query = query.Where(p => p.CivilId != null && p.CivilId.Contains(civilId));
 
-        return await query.OrderBy(p => p.Id).ToListAsync(cancellationToken);
+        query = query.OrderBy(p => p.Id);
+
+        var totalCount = await query.CountAsync(cancellationToken);
+
+        if (pageSize > 0)
+        {
+            query = query.Skip((page - 1) * pageSize).Take(pageSize);
+        }
+
+        var items = await query.ToListAsync(cancellationToken);
+
+        return new PagedResult<Patient>
+        {
+            Items = items,
+            TotalCount = totalCount,
+            Page = page,
+            PageSize = pageSize,
+        };
     }
 
     public async Task<Patient?> GetByIdAsync(int id, CancellationToken cancellationToken = default)
     {
         return await _db.Patients
+            .AsNoTracking()
             .Include(p => p.Address)
             .Include(p => p.ProfessionalDetails)
             .Include(p => p.AdditionalDetails)
-            .FirstOrDefaultAsync(p => p.Id == id, cancellationToken);
+            .FirstOrDefaultAsync(p => p.Id == id && p.IsActive, cancellationToken);
     }
 
     public async Task<Patient?> GetByMrNumberAsync(string mrNumber, CancellationToken cancellationToken = default)
     {
         return await _db.Patients
+            .AsNoTracking()
             .Include(p => p.Address)
             .Include(p => p.ProfessionalDetails)
             .Include(p => p.AdditionalDetails)
-            .FirstOrDefaultAsync(p => p.MrNumber == mrNumber, cancellationToken);
+            .FirstOrDefaultAsync(p => p.MrNumber == mrNumber && p.IsActive, cancellationToken);
     }
 }

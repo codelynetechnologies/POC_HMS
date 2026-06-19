@@ -11,11 +11,16 @@ public class ExceptionHandlingMiddleware
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionHandlingMiddleware> _logger;
+    private readonly IHostEnvironment _environment;
 
-    public ExceptionHandlingMiddleware(RequestDelegate next, ILogger<ExceptionHandlingMiddleware> logger)
+    public ExceptionHandlingMiddleware(
+        RequestDelegate next,
+        ILogger<ExceptionHandlingMiddleware> logger,
+        IHostEnvironment environment)
     {
         _next = next;
         _logger = logger;
+        _environment = environment;
     }
 
     public async Task InvokeAsync(HttpContext context)
@@ -32,9 +37,13 @@ public class ExceptionHandlingMiddleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
+            var errors = _environment.IsDevelopment()
+                ? new[] { ex.Message }
+                : Array.Empty<string>();
+
             var response = ApiResponseDto<object>.Fail(
                 "An unexpected error occurred. Please try again later.",
-                new[] { ex.Message });
+                errors);
 
             var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
             await context.Response.WriteAsync(JsonSerializer.Serialize(response, options));

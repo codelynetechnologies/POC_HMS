@@ -1,3 +1,4 @@
+using HMS.PatientRegistration.Domain.Common;
 using HMS.PatientRegistration.Domain.Enums;
 
 namespace HMS.PatientRegistration.Domain.Entities;
@@ -6,7 +7,7 @@ namespace HMS.PatientRegistration.Domain.Entities;
 /// Aggregate root representing a registered patient. Mirrors the legacy patient
 /// master table as closely as possible to ease migration.
 /// </summary>
-public class Patient
+public class Patient : IAuditableEntity
 {
     public int Id { get; set; }
 
@@ -47,4 +48,7 @@ public class Patient
     // Audit
     public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
     public DateTime? ModifiedOn { get; set; }
+    public string? CreatedBy { get; set; }
+    public string? ModifiedBy { get; set; }
+    public bool IsActive { get; set; } = true;
 }

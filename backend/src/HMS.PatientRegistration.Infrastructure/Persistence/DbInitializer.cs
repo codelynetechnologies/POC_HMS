@@ -4,10 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace HMS.PatientRegistration.Infrastructure.Persistence;
 
-/// <summary>
-/// Ensures the SQL Server database exists and is seeded with demo data the first
-/// time the app runs in SqlServer mode. No-op in Mock mode (context not registered).
-/// </summary>
 public static class DbInitializer
 {
     public static async Task InitializeAsync(IServiceProvider services, CancellationToken cancellationToken = default)
@@ -16,17 +12,25 @@ public static class DbInitializer
         var db = scope.ServiceProvider.GetService<PatientRegistrationDbContext>();
         if (db is null)
         {
-            return; // Mock mode — nothing to initialise.
+            return;
         }
 
-        await db.Database.EnsureCreatedAsync(cancellationToken);
+        var pending = await db.Database.GetPendingMigrationsAsync(cancellationToken);
+        if (pending.Any())
+        {
+            await db.Database.MigrateAsync(cancellationToken);
+        }
+        else if (!await db.Database.CanConnectAsync(cancellationToken))
+        {
+            await db.Database.EnsureCreatedAsync(cancellationToken);
+        }
 
         if (!await db.DropdownItems.AnyAsync(cancellationToken))
         {
             var dropdowns = SeedData.GetDropdownItems();
             foreach (var item in dropdowns)
             {
-                item.Id = 0; // let the database assign identities
+                item.Id = 0;
             }
             db.DropdownItems.AddRange(dropdowns);
             await db.SaveChangesAsync(cancellationToken);
@@ -37,7 +41,7 @@ public static class DbInitializer
             var patients = SeedData.GetPatients();
             foreach (var patient in patients)
             {
-                patient.Id = 0; // let the database assign identities
+                patient.Id = 0;
             }
             db.Patients.AddRange(patients);
             await db.SaveChangesAsync(cancellationToken);

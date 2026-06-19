@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, map, of, shareReplay } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { ApiResponse } from '../models/api-response.model';
 import { DropdownItem } from '../models/patient.models';
 
@@ -11,7 +12,7 @@ import { DropdownItem } from '../models/patient.models';
 @Injectable({ providedIn: 'root' })
 export class DropdownService {
   private readonly http = inject(HttpClient);
-  private readonly baseUrl = '/api/dropdowns';
+  private readonly baseUrl = `${environment.apiBaseUrl}/dropdowns`;
   private readonly cache = new Map<string, Observable<DropdownItem[]>>();
 
   /** Fetch a static (non-cascading) dropdown category, cached for the session. */

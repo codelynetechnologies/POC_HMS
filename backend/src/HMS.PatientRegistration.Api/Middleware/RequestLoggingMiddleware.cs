@@ -2,7 +2,6 @@ using System.Diagnostics;
 
 namespace HMS.PatientRegistration.Api.Middleware;
 
-/// <summary>Logs each request method, path and elapsed time at information level.</summary>
 public class RequestLoggingMiddleware
 {
     private readonly RequestDelegate _next;
@@ -16,6 +15,7 @@ public class RequestLoggingMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
+        context.Response.Headers.TryAdd("X-Correlation-Id", context.TraceIdentifier);
         var stopwatch = Stopwatch.StartNew();
         try
         {
@@ -24,11 +24,13 @@ public class RequestLoggingMiddleware
         finally
         {
             stopwatch.Stop();
-            _logger.LogInformation("{Method} {Path} responded {StatusCode} in {Elapsed} ms",
+            _logger.LogInformation(
+                "{Method} {Path} responded {StatusCode} in {Elapsed}ms CorrelationId={CorrelationId}",
                 context.Request.Method,
                 context.Request.Path,
                 context.Response.StatusCode,
-                stopwatch.ElapsedMilliseconds);
+                stopwatch.ElapsedMilliseconds,
+                context.TraceIdentifier);
         }
     }
 }
